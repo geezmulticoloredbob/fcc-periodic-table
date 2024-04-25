@@ -17,3 +17,10 @@ else
 #if argument is string
   element=$($PSQL "select atomic_number, name, symbol, type, atomic_mass, melting_point_celsius, boiling_point_celsius from elements join properties using(atomic_number) join types using(type_id) where name = '$1' or symbol = '$1'")
 fi
+
+#element not in db
+if [[ -z $element ]]
+then
+  echo -e "\nI could not find that element in the database."
+  exit
+fi
